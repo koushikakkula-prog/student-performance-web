@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works - Student Performance Prediction System{% endblock %}
+
+{% block content %}
+<div class="py-5 bg-light">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 mb-2">
+        <i class="fas fa-network-wired me-1"></i> Technical Architecture
+      </span>
+      <h2 class="fw-bold">How the Prediction System Works</h2>
+      <p class="text-muted">
+        Explore the machine learning pipeline and data processing stages powering the Student Performance Prediction System.
+      </p>
+    </div>
+
+    <!-- 5 Workflow Graphical Cards -->
+    <div class="row g-4 mb-5">
+      <!-- Step 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="step-card h-100">
+          <span class="step-number">01</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-user-pen"></i>
+          </div>
+          <h5 class="fw-bold mb-2">1. Enter Student Details</h5>
+          <p class="text-muted small mb-3">
+            Academic advisors, teachers, or students provide granular metrics covering:
+          </p>
+          <ul class="text-muted small ps-3 mb-0">
+            <li><strong>Attendance:</strong> Percentage of classes attended.</li>
+            <li><strong>Previous & Internal Marks:</strong> Prior semester and continuous assessment scores.</li>
+            <li><strong>Study & Sleep Hours:</strong> Daily behavioral routines and rest habits.</li>
+            <li><strong>Environmental Factors:</strong> Extracurriculars, Internet access, and parental education.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="step-card h-100">
+          <span class="step-number">02</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-sliders"></i>
+          </div>
+          <h5 class="fw-bold mb-2">2. Data Preprocessing</h5>
+          <p class="text-muted small mb-3">
+            Raw student parameters are cleansed, encoded, and standardized:
+          </p>
+          <ul class="text-muted small ps-3 mb-0">
+            <li><strong>Ordinal Encoding:</strong> Categorical variables (e.g. Parental Education) are mapped to structured numeric tiers.</li>
+            <li><strong>Feature Scaling:</strong> StandardScaler normalizes variances to eliminate feature dominance.</li>
+            <li><strong>Range Clamping:</strong> Prevents out-of-boundary anomalies.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="step-card h-100">
+          <span class="step-number">03</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h5 class="fw-bold mb-2">3. Machine Learning Analysis</h5>
+          <p class="text-muted small mb-3">
+            The input vector is processed through trained supervised learning models:
+          </p>
+          <ul class="text-muted small ps-3 mb-0">
+            <li><strong>Random Forest:</strong> Aggregates predictions over 150 randomized decision trees to capture non-linear student behavior patterns.</li>
+            <li><strong>Decision Tree & Linear Models:</strong> Benchmarked for baseline verification and transparent path analysis.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="col-lg-6 col-md-6">
+        <div class="step-card h-100">
+          <span class="step-number">04</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <h5 class="fw-bold mb-2">4. Performance Prediction & Grading</h5>
+          <p class="text-muted small mb-3">
+            Generates exact numerical scores and matches institutional grading scales:
+          </p>
+          <div class="row g-2 small">
+            <div class="col-6"><span class="badge badge-outstanding w-100 p-2">90–100% : Grade O (Outstanding)</span></div>
+            <div class="col-6"><span class="badge badge-excellent w-100 p-2">80–89% : Grade A+ (Excellent)</span></div>
+            <div class="col-6"><span class="badge badge-good w-100 p-2">70–79% : Grade A (Good)</span></div>
+            <div class="col-6"><span class="badge badge-average w-100 p-2">60–69% : Grade B (Average)</span></div>
+            <div class="col-6"><span class="badge badge-improvement w-100 p-2">40–59% : Grade C (Needs Work)</span></div>
+            <div class="col-6"><span class="badge badge-risk w-100 p-2">&lt;40% : Fail (Below 40%)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="col-lg-6 col-md-12">
+        <div class="step-card h-100">
+          <span class="step-number">05</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h5 class="fw-bold mb-2">5. Personalized AI Recommendations</h5>
+          <p class="text-muted small mb-3">
+            An intelligent heuristic recommendation engine parses specific student vulnerabilities:
+          </p>
+          <ul class="text-muted small ps-3 mb-0">
+            <li><strong>Attendance Alerts:</strong> Immediate remediation for students below the 75% threshold.</li>
+            <li><strong>Study Schedule Tuning:</strong> Customized study-hour targets for students underperforming in exams.</li>
+            <li><strong>Sleep & Health Guidance:</strong> Adjustments for irregular sleeping routines.</li>
+            <li><strong>Remedial Support:</strong> Targeted focus on recurring backlog subjects.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Navigation CTA -->
+    <div class="text-center p-4 bg-white rounded-4 shadow-sm">
+      <h4 class="fw-bold mb-2">Experience the AI Pipeline in Action</h4>
+      <p class="text-muted small mb-3">Test real-time student evaluation with customizable presets.</p>
+      <a href="{{ url_for('predict_page') }}" class="btn btn-primary-custom">
+        <i class="fas fa-wand-magic-sparkles me-2"></i> Launch Performance Predictor
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{
+    "best_model": "Linear Regression",
+    "models_comparison": {
+        "Random Forest Regressor": {
+            "r2_score": 0.9659,
+            "mae": 1.97,
+            "mse": 6.17,
+            "rmse": 2.48,
+            "accuracy_percentage": 96.59
+        },
+        "Decision Tree Regressor": {
+            "r2_score": 0.925,
+            "mae": 2.96,
+            "mse": 13.56,
+            "rmse": 3.68,
+            "accuracy_percentage": 92.5
+        },
+        "Linear Regression": {
+            "r2_score": 0.9815,
+            "mae": 1.46,
+            "mse": 3.34,
+            "rmse": 1.83,
+            "accuracy_percentage": 98.15
+        }
+    },
+    "feature_importances": {
+        "attendance": 0.0089,
+        "prev_marks": 0.0769,
+        "study_hours": 0.0083,
+        "assignment_score": 0.0273,
+        "internal_marks": 0.7969,
+        "class_test_marks": 0.0577,
+        "past_failures": 0.0172,
+        "sleep_hours": 0.0026,
+        "extracurricular_num": 0.0005,
+        "internet_access_num": 0.0003,
+        "parental_edu_num": 0.0017,
+        "age": 0.0017
+    },
+    "features": [
+        "attendance",
+        "prev_marks",
+        "study_hours",
+        "assignment_score",
+        "internal_marks",
+        "class_test_marks",
+        "past_failures",
+        "sleep_hours",
+        "extracurricular_num",
+        "internet_access_num",
+        "parental_edu_num",
+        "age"
+    ],
+    "dataset_size": 3000
+}

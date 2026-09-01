@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Student Performance Prediction System{% endblock %}</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('index') }}">
+        <div class="brand-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <span>Student Performance Predictor</span>
+      </a>
+
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars fs-4 text-dark"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">
+              <i class="fas fa-home me-1 text-primary"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('predict_page') }}">
+              <i class="fas fa-wand-magic-sparkles me-1 text-primary"></i> Predict Performance
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('dashboard') }}">
+              <i class="fas fa-chart-line me-1 text-primary"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('how_it_works') }}">
+              <i class="fas fa-network-wired me-1 text-primary"></i> How It Works
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about') }}">
+              <i class="fas fa-info-circle me-1 text-primary"></i> About Project
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('contact') }}">
+              <i class="fas fa-envelope me-1 text-primary"></i> Contact
+            </a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-2">
+          <a href="{{ url_for('predict_page') }}" class="btn btn-primary-custom btn-sm px-3 shadow-sm">
+            <i class="fas fa-bolt me-1"></i> Quick Predict
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flash Messages Container -->
+  <div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm rounded-3" role="alert">
+            <i class="fas fa-info-circle me-2"></i> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- Main Content Block -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Brand / About Column -->
+        <div class="col-lg-4 col-md-6">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="brand-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <span class="text-white fw-bold fs-5">Student Performance Predictor</span>
+          </div>
+          <p class="text-muted small mb-4">
+            An AI-powered academic analytics platform utilizing Machine Learning to predict student academic outcomes, detect at-risk students early, and generate personalized improvement strategies.
+          </p>
+          <div class="d-flex gap-2">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Scikit-Learn ML</span>
+            <span class="badge bg-info-subtle text-info border border-info-subtle">Flask Backend</span>
+            <span class="badge bg-success-subtle text-success border border-success-subtle">Chart.js Analytics</span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-6 col-6">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('index') }}"><i class="fas fa-chevron-right me-1 small"></i> Home</a></li>
+            <li><a href="{{ url_for('predict_page') }}"><i class="fas fa-chevron-right me-1 small"></i> Predict Performance</a></li>
+            <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-chevron-right me-1 small"></i> Analytics Dashboard</a></li>
+            <li><a href="{{ url_for('how_it_works') }}"><i class="fas fa-chevron-right me-1 small"></i> How It Works</a></li>
+            <li><a href="{{ url_for('about') }}"><i class="fas fa-chevron-right me-1 small"></i> About Project</a></li>
+          </ul>
+        </div>
+
+        <!-- Grading Classification -->
+        <div class="col-lg-3 col-md-6 col-6">
+          <h5 class="footer-title">Grading Scale</h5>
+          <ul class="footer-links small">
+            <li><span class="badge badge-outstanding me-1">90–100%</span> Outstanding (O)</li>
+            <li><span class="badge badge-excellent me-1">80–89%</span> Excellent (A+)</li>
+            <li><span class="badge badge-good me-1">70–79%</span> Good (A)</li>
+            <li><span class="badge badge-average me-1">60–69%</span> Average (B)</li>
+            <li><span class="badge badge-improvement me-1">40–59%</span> Needs Improvement (C)</li>
+            <li><span class="badge badge-risk me-1">&lt;40%</span> Fail</li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-lg-3 col-md-6">
+          <h5 class="footer-title">Contact & Support</h5>
+          <ul class="footer-links small">
+            <li class="d-flex align-items-start gap-2">
+              <i class="fas fa-university text-primary mt-1"></i>
+              <span>Department of Computer Science & Engineering</span>
+            </li>
+            <li class="d-flex align-items-center gap-2">
+              <i class="fas fa-envelope text-primary"></i>
+              <span>support@studentperformance.ai</span>
+            </li>
+            <li class="d-flex align-items-center gap-2">
+              <i class="fas fa-code-branch text-primary"></i>
+              <span>v2.4 - Academic Mini Project</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="mb-0">Copyright &copy; 2026 Student Performance Prediction System. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Main JS -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

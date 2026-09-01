@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}About Project - Student Performance Prediction System{% endblock %}
+
+{% block content %}
+<div class="py-5 bg-light">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 mb-2">
+        <i class="fas fa-info-circle me-1"></i> Project Overview
+      </span>
+      <h2 class="fw-bold">Student Performance Prediction System</h2>
+      <p class="text-muted">
+        An advanced Academic Analytics and Machine Learning system built for modern educational institutions.
+      </p>
+    </div>
+
+    <!-- Main About Description Card -->
+    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <h3 class="fw-bold mb-3 text-primary">Empowering Educators with Data-Driven Intelligence</h3>
+          <p class="text-muted leading-relaxed mb-4">
+            This project uses <strong>Machine Learning techniques</strong> to analyze academic and behavioral data to predict student performance. The system can help educational institutions identify students who may require additional academic support and allow teachers to make data-driven decisions.
+          </p>
+          <p class="text-muted leading-relaxed mb-4">
+            By aggregating continuous assessment scores, attendance patterns, historical failure counts, daily study hours, and environmental circumstances, our system provides an early warning mechanism before final examinations take place.
+          </p>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <div class="p-3 bg-light rounded-3 border-start border-primary border-3">
+                <strong class="d-block text-dark">Early Intervention</strong>
+                <small class="text-muted">Flags at-risk students weeks before semester finals.</small>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="p-3 bg-light rounded-3 border-start border-success border-3">
+                <strong class="d-block text-dark">Personalized Guidance</strong>
+                <small class="text-muted">Targeted suggestions tailored to individual learning gaps.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="p-4 bg-primary-subtle rounded-4 border border-primary-subtle text-center">
+            <div class="brand-icon mx-auto mb-3" style="width:64px; height:64px; font-size:1.8rem;">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h5 class="fw-bold text-dark mb-1">Academic Mini Project</h5>
+            <p class="text-muted small mb-3">Department of Computer Science & Engineering</p>
+            <div class="d-flex justify-content-center gap-2 flex-wrap">
+              <span class="badge bg-white text-dark shadow-sm">B.Tech / B.E. CS</span>
+              <span class="badge bg-white text-dark shadow-sm">Batch 2026</span>
+              <span class="badge bg-white text-dark shadow-sm">Machine Learning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Features Section -->
+    <div class="mb-5">
+      <div class="text-center max-w-700 mx-auto mb-4">
+        <h3 class="fw-bold">Key Features</h3>
+        <p class="text-muted small">Comprehensive feature matrix integrated within the platform.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Real-time Student Performance Prediction</h6>
+            <p class="text-muted small mb-0">Instant prediction of student final scores with dynamic visual feedback.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Machine Learning Integration</h6>
+            <p class="text-muted small mb-0">Trained on multi-model pipelines using Scikit-learn (Random Forest, Decision Trees).</p>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Interactive Dashboard</h6>
+            <p class="text-muted small mb-0">Visual analytics, KPIs, live filtering, and interactive chart drill-downs.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Performance Analytics</h6>
+            <p class="text-muted small mb-0">Correlation analysis of attendance, internal assessments, and continuous study hours.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-triangle-exclamation"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Student Risk Detection</h6>
+            <p class="text-muted small mb-0">Automatic identification and categorizing of students requiring academic counseling.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Personalized Improvement Suggestions</h6>
+            <p class="text-muted small mb-0">Smart advice targeting individual study habits, sleep schedules, and exam techniques.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-mobile-screen"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Responsive User Interface</h6>
+            <p class="text-muted small mb-0">Engineered with clean modern glassmorphism, fully responsive on all screens.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <div class="feature-card text-center">
+            <div class="feature-icon-wrapper mx-auto">
+              <i class="fas fa-chart-area"></i>
+            </div>
+            <h6 class="fw-bold mb-2">Data Visualization</h6>
+            <p class="text-muted small mb-0">High-performance Chart.js graphs for multi-dimensional comparison.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technologies Used Section -->
+    <div>
+      <div class="text-center max-w-700 mx-auto mb-4">
+        <span class="badge bg-secondary-subtle text-dark border px-3 py-2 mb-2">Tech Stack</span>
+        <h3 class="fw-bold">Technologies Used</h3>
+        <p class="text-muted small">Modern full-stack technologies powering the application.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Frontend -->
+        <div class="col-md-3 col-sm-6">
+          <div class="card border-0 p-4 shadow-sm rounded-4 h-100 bg-white">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fab fa-html5 fs-3 text-danger"></i>
+              <h5 class="fw-bold mb-0">Frontend</h5>
+            </div>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>HTML5 (Semantic markup)</li>
+              <li>CSS3 (Modern Variables & Glassmorphism)</li>
+              <li>JavaScript (ES6+ & Async/Await)</li>
+              <li>Bootstrap 5.3 (Responsive Grid)</li>
+              <li>Font Awesome 6 (Icons)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="col-md-3 col-sm-6">
+          <div class="card border-0 p-4 shadow-sm rounded-4 h-100 bg-white">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fab fa-python fs-3 text-primary"></i>
+              <h5 class="fw-bold mb-0">Backend</h5>
+            </div>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>Python 3.12</li>
+              <li>Flask (Web Framework)</li>
+              <li>RESTful API Endpoints</li>
+              <li>Jinja2 Template Engine</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Machine Learning -->
+        <div class="col-md-3 col-sm-6">
+          <div class="card border-0 p-4 shadow-sm rounded-4 h-100 bg-white">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fas fa-brain fs-3 text-success"></i>
+              <h5 class="fw-bold mb-0">Machine Learning</h5>
+            </div>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>Scikit-Learn (Ensemble Algorithms)</li>
+              <li>Pandas (Data manipulation)</li>
+              <li>NumPy (Vector operations)</li>
+              <li>Joblib (Model serialization)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Database & Visualization -->
+        <div class="col-md-3 col-sm-6">
+          <div class="card border-0 p-4 shadow-sm rounded-4 h-100 bg-white">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fas fa-database fs-3 text-warning"></i>
+              <h5 class="fw-bold mb-0">Data & Charts</h5>
+            </div>
+            <ul class="text-muted small ps-3 mb-0">
+              <li>Chart.js (Interactive canvas charts)</li>
+              <li>SQLite (Embedded Relational DB)</li>
+              <li>JSON (Asynchronous data exchange)</li>
+              <li>CSV Exporter Engine</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

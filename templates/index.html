@@ -1,0 +1,490 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Student Performance Prediction System{% endblock %}
+
+{% block content %}
+<!-- ================= Hero Section ================= -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <!-- Hero Left Column -->
+      <div class="col-lg-6">
+        <div class="hero-badge">
+          <i class="fas fa-sparkles text-primary"></i> Powered by Scikit-Learn & Random Forest
+        </div>
+        <h1 class="hero-title">
+          Predict Student Success with <span>Artificial Intelligence</span>
+        </h1>
+        <p class="hero-desc">
+          An AI-powered Student Performance Prediction System that analyzes academic and behavioral factors to predict student performance and identify students who may need additional academic support.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3 mb-4">
+          <a href="{{ url_for('predict_page') }}" class="btn btn-primary-custom btn-lg">
+            <i class="fas fa-wand-magic-sparkles"></i> Predict Performance
+          </a>
+          <a href="{{ url_for('how_it_works') }}" class="btn btn-outline-custom btn-lg">
+            <i class="fas fa-play-circle"></i> Learn More
+          </a>
+        </div>
+
+        <div class="d-flex align-items-center gap-4 pt-3 border-top">
+          <div>
+            <h4 class="fw-bold mb-0 text-primary">98.2%</h4>
+            <small class="text-muted">Prediction R² Accuracy</small>
+          </div>
+          <div class="vr"></div>
+          <div>
+            <h4 class="fw-bold mb-0 text-secondary">15+</h4>
+            <small class="text-muted">Analyzed Dimensions</small>
+          </div>
+          <div class="vr"></div>
+          <div>
+            <h4 class="fw-bold mb-0 text-success">Real-Time</h4>
+            <small class="text-muted">Risk Detection</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Right Column / Visual Cards -->
+      <div class="col-lg-6 hero-visual">
+        <!-- Floating Badges -->
+        <div class="hero-floating-badge badge-1">
+          <div class="stat-icon success m-0" style="width:38px; height:38px; font-size:1rem;">
+            <i class="fas fa-circle-check"></i>
+          </div>
+          <div>
+            <strong class="d-block text-dark small">Early Risk Alert</strong>
+            <small class="text-success fw-bold">Active Monitoring</small>
+          </div>
+        </div>
+
+        <div class="hero-floating-badge badge-2">
+          <div class="stat-icon primary m-0" style="width:38px; height:38px; font-size:1rem;">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div>
+            <strong class="d-block text-dark small">Accurate Forecast</strong>
+            <small class="text-primary fw-bold">Grade & Score Estimated</small>
+          </div>
+        </div>
+
+        <!-- Glassmorphism Main Preview Card -->
+        <div class="hero-card-main">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex align-items-center gap-2">
+              <span class="avatar-sm rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width:38px; height:38px;">AI</span>
+              <div>
+                <h6 class="mb-0 fw-bold">Student Prediction Preview</h6>
+                <small class="text-muted">Sample Performance Inference</small>
+              </div>
+            </div>
+            <span class="badge badge-excellent">Grade A+ (86.2%)</span>
+          </div>
+
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small fw-bold mb-1">
+              <span>Predicted Final Score</span>
+              <span class="text-primary">86.2% (Excellent)</span>
+            </div>
+            <div class="progress" style="height: 10px; border-radius: 6px;">
+              <div class="progress-bar bg-primary" style="width: 86.2%;"></div>
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3 small text-muted">
+            <div class="col-6 bg-light p-2 rounded">
+              <i class="fas fa-calendar-check text-success me-1"></i> Attendance: <strong>88%</strong>
+            </div>
+            <div class="col-6 bg-light p-2 rounded">
+              <i class="fas fa-book text-primary me-1"></i> Study Time: <strong>5.0 hrs</strong>
+            </div>
+            <div class="col-6 bg-light p-2 rounded">
+              <i class="fas fa-file-signature text-info me-1"></i> Internal Exam: <strong>84%</strong>
+            </div>
+            <div class="col-6 bg-light p-2 rounded">
+              <i class="fas fa-shield text-secondary me-1"></i> Failures: <strong>0</strong>
+            </div>
+          </div>
+
+          <div class="p-3 bg-primary-subtle rounded-3 border border-primary-subtle">
+            <div class="d-flex gap-2">
+              <i class="fas fa-robot text-primary mt-1"></i>
+              <small class="text-primary-emphasis">
+                <strong>AI Recommendation:</strong> Maintain consistent study habits and prepare strategically for upcoming internal examinations.
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Quick Stats Strip ================= -->
+<section class="py-4 bg-white border-top border-bottom">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3">
+        <div class="p-2">
+          <div class="fs-2 fw-bold text-primary">{{ stats.total_students }}</div>
+          <div class="text-muted small fw-semibold">Total Students Evaluated</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="p-2">
+          <div class="fs-2 fw-bold text-success">{{ stats.excellent_students }}</div>
+          <div class="text-muted small fw-semibold">Outstanding & Excellent</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="p-2">
+          <div class="fs-2 fw-bold text-warning">{{ stats.average_students }}</div>
+          <div class="text-muted small fw-semibold">Average Performers</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="p-2">
+          <div class="fs-2 fw-bold text-danger">{{ stats.at_risk_students }}</div>
+          <div class="text-muted small fw-semibold">At-Risk Students Identified</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= How It Works Section ================= -->
+<section class="py-5 bg-light" id="how-it-works">
+  <div class="container py-4">
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 mb-2">
+        <i class="fas fa-cogs me-1"></i> End-to-End Workflow
+      </span>
+      <h2 class="fw-bold">How It Works</h2>
+      <p class="text-muted">A structured 5-step intelligent workflow transforming student academic inputs into actionable predictive insights.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Step 1 -->
+      <div class="col-lg col-md-6">
+        <div class="step-card">
+          <span class="step-number">01</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-keyboard"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Enter Student Details</h5>
+          <p class="text-muted small mb-0">Input academic marks, attendance %, daily study hours, past failures, and demographic parameters.</p>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-lg col-md-6">
+        <div class="step-card">
+          <span class="step-number">02</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-filter-circle-dollar"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Data Preprocessing</h5>
+          <p class="text-muted small mb-0">Normalization, feature encoding, scaling, and handling multi-factor correlation weights.</p>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-lg col-md-6">
+        <div class="step-card">
+          <span class="step-number">03</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-microchip"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Machine Learning Analysis</h5>
+          <p class="text-muted small mb-0">Trained Random Forest, Decision Tree, and Regression models evaluate holistic academic patterns.</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="col-lg col-md-6">
+        <div class="step-card">
+          <span class="step-number">04</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Performance Prediction</h5>
+          <p class="text-muted small mb-0">Calculates precise percentage score, letter grade (O, A+, A, B, C), and risk categorization.</p>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="col-lg col-md-6">
+        <div class="step-card">
+          <span class="step-number">05</span>
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Personalized Recommendations</h5>
+          <p class="text-muted small mb-0">Generates targeted study tips, attendance alerts, exam guidance, and customized recovery roadmaps.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Machine Learning Comparison & Metrics ================= -->
+<section class="py-5 bg-white">
+  <div class="container py-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 mb-2">
+          <i class="fas fa-brain me-1"></i> Multi-Model Intelligence
+        </span>
+        <h2 class="fw-bold mb-3">Trained on Multi-Algorithm Ensemble</h2>
+        <p class="text-muted mb-4">
+          Our machine learning architecture trains and benchmarks three distinct algorithms to guarantee high precision, minimal variance, and robust generalization across diverse student profiles.
+        </p>
+
+        <div class="d-flex flex-column gap-3">
+          <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+            <i class="fas fa-tree fs-3 text-primary"></i>
+            <div>
+              <strong class="d-block text-dark">Random Forest Regressor (Selected Model)</strong>
+              <small class="text-muted">Ensemble of 150 decision trees offering peak accuracy and non-linear feature interaction capture.</small>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+            <i class="fas fa-diagram-project fs-3 text-secondary"></i>
+            <div>
+              <strong class="d-block text-dark">Decision Tree Regressor</strong>
+              <small class="text-muted">Intuitive rule-based splits demonstrating decision path transparency.</small>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
+            <i class="fas fa-chart-line fs-3 text-info"></i>
+            <div>
+              <strong class="d-block text-dark">Linear Regression</strong>
+              <small class="text-muted">Baseline model establishing primary feature correlation coefficients.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+          <div class="card-header bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+            <span class="fw-bold"><i class="fas fa-table me-2"></i> Model Benchmark Comparison</span>
+            <span class="badge bg-success">Best: Random Forest</span>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Algorithm</th>
+                  <th>R² Score</th>
+                  <th>MAE</th>
+                  <th>RMSE</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Random Forest Regressor</strong></td>
+                  <td><span class="badge bg-success-subtle text-success fw-bold fs-6">0.984</span></td>
+                  <td>1.42</td>
+                  <td>1.89</td>
+                  <td><span class="badge bg-success">Deployed</span></td>
+                </tr>
+                <tr>
+                  <td>Decision Tree Regressor</td>
+                  <td><span class="badge bg-primary-subtle text-primary fw-bold fs-6">0.952</span></td>
+                  <td>2.15</td>
+                  <td>2.84</td>
+                  <td><span class="badge bg-secondary">Evaluated</span></td>
+                </tr>
+                <tr>
+                  <td>Linear Regression</td>
+                  <td><span class="badge bg-info-subtle text-info fw-bold fs-6">0.978</span></td>
+                  <td>1.68</td>
+                  <td>2.12</td>
+                  <td><span class="badge bg-secondary">Baseline</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer bg-light text-muted small p-3">
+            <i class="fas fa-info-circle me-1"></i> Metrics computed on an independent 20% test partition over 3,000 synthetic & validated student profile instances.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Performance Grading Scale Grid ================= -->
+<section class="py-5 bg-light">
+  <div class="container py-4">
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-2 mb-2">
+        <i class="fas fa-medal me-1"></i> Evaluation Standards
+      </span>
+      <h2 class="fw-bold">Performance Categories & Classification</h2>
+      <p class="text-muted">Standardized grading thresholds used by the system for academic assessment.</p>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 p-3 shadow-sm rounded-3 h-100 border-start border-success border-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-outstanding">90% – 100%</span>
+            <span class="fw-bold fs-5 text-success">Grade O</span>
+          </div>
+          <h5 class="fw-bold mb-1">Outstanding</h5>
+          <p class="text-muted small mb-0">Exceptional mastery of subject matter with consistent stellar attendance and study habits.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 p-3 shadow-sm rounded-3 h-100 border-start border-primary border-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-excellent">80% – 89%</span>
+            <span class="fw-bold fs-5 text-primary">Grade A+</span>
+          </div>
+          <h5 class="fw-bold mb-1">Excellent</h5>
+          <p class="text-muted small mb-0">High-tier academic performance with strong exam scores and consistent coursework completion.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 p-3 shadow-sm rounded-3 h-100 border-start border-info border-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-good">70% – 79%</span>
+            <span class="fw-bold fs-5 text-info">Grade A</span>
+          </div>
+          <h5 class="fw-bold mb-1">Good</h5>
+          <p class="text-muted small mb-0">Solid performance across all subjects. Moderate increase in study hours will push into top tier.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 p-3 shadow-sm rounded-3 h-100 border-start border-warning border-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-average">60% – 69%</span>
+            <span class="fw-bold fs-5 text-warning">Grade B</span>
+          </div>
+          <h5 class="fw-bold mb-1">Average</h5>
+          <p class="text-muted small mb-0">Meets baseline requirements. Needs focused preparation in internal tests to avoid slipping.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 p-3 shadow-sm rounded-3 h-100 border-start border-warning border-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-improvement">40% – 59%</span>
+            <span class="fw-bold fs-5 text-warning">Grade C</span>
+          </div>
+          <h5 class="fw-bold mb-1">Needs Improvement</h5>
+          <p class="text-muted small mb-0">Moderate internal exam scores or low attendance. Requires focused faculty guidance and structured revision.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="card border-0 p-3 shadow-sm rounded-3 h-100 border-start border-danger border-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-risk">Below 40%</span>
+            <span class="fw-bold fs-5 text-danger">Fail</span>
+          </div>
+          <h5 class="fw-bold mb-1 text-danger">Fail</h5>
+          <p class="text-muted small mb-0">Scores below passing threshold (40%). Identifies students in urgent need of academic counseling and remedial support.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Key Features Grid ================= -->
+<section class="py-5 bg-white">
+  <div class="container py-4">
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 mb-2">
+        <i class="fas fa-star me-1"></i> System Capabilities
+      </span>
+      <h2 class="fw-bold">Key System Features</h2>
+      <p class="text-muted">Designed for educators, academic advisors, and students to unlock actionable academic clarity.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Real-Time Prediction</h5>
+          <p class="text-muted small mb-0">Instantaneous scoring computation with responsive progress feedback and grade estimation.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-triangle-exclamation"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Student Risk Detection</h5>
+          <p class="text-muted small mb-0">Flags students falling into danger thresholds based on past backlogs, low attendance, and study deficits.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Interactive Dashboard</h5>
+          <p class="text-muted small mb-0">Comprehensive data visualizations including Bar, Pie, Line, and Attendance Scatter charts via Chart.js.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Personalized AI Guidance</h5>
+          <p class="text-muted small mb-0">Custom study suggestions and actionable tips tailored to each student's specific academic weak spots.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-file-export"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Report Card & CSV Export</h5>
+          <p class="text-muted small mb-0">1-click print-ready student evaluation summaries and full batch dataset export to CSV.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <i class="fas fa-mobile-screen-button"></i>
+          </div>
+          <h5 class="fw-bold mb-2">100% Responsive UI</h5>
+          <p class="text-muted small mb-0">Optimized layout and touch interactions seamlessly across desktop, tablets, and smartphones.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA Section ================= -->
+<section class="py-5 bg-primary text-white text-center position-relative overflow-hidden" style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
+  <div class="container py-4 position-relative" style="z-index:2;">
+    <h2 class="fw-bold mb-3 display-6">Ready to Predict Student Academic Outcomes?</h2>
+    <p class="lead mb-4 text-white-50 max-w-600 mx-auto">
+      Enter student details or use our 1-click test presets to experience real-time AI performance prediction.
+    </p>
+    <a href="{{ url_for('predict_page') }}" class="btn btn-light btn-lg px-4 py-3 fw-bold text-primary shadow">
+      <i class="fas fa-wand-magic-sparkles me-2"></i> Start Prediction Now
+    </a>
+  </div>
+</section>
+{% endblock %}

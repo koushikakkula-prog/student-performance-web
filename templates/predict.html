@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block title %}Predict Performance - Student Performance Prediction System{% endblock %}
+
+{% block content %}
+<!-- Loading Overlay during AI Inference -->
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="spinner-ai"></div>
+  <h4 class="text-white fw-bold mb-2">Analyzing Student Profile</h4>
+  <p id="loadingText" class="text-white-50 small mb-0">Executing Machine Learning Ensemble...</p>
+</div>
+
+<div class="py-5 bg-light">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="text-center max-w-700 mx-auto mb-4">
+      <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 mb-2">
+        <i class="fas fa-microchip me-1"></i> AI Predictive Engine
+      </span>
+      <h2 class="fw-bold">Predict Student Academic Performance</h2>
+      <p class="text-muted small">
+        Fill out the student's academic, behavioral, and demographic details below. The machine learning model will evaluate the input and predict final performance score with personalized guidance.
+      </p>
+    </div>
+
+    <!-- Quick Preset Buttons -->
+    <div class="card border-0 shadow-sm p-3 mb-4 rounded-4 bg-white">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div class="d-flex align-items-center gap-2">
+          <i class="fas fa-magic text-primary"></i>
+          <span class="small fw-bold text-muted">Quick Load Sample Profiles:</span>
+        </div>
+        <div class="preset-btn-group mb-0">
+          <button type="button" class="preset-btn" data-preset="achiever">
+            <i class="fas fa-star text-warning"></i> High Achiever
+          </button>
+          <button type="button" class="preset-btn" data-preset="average">
+            <i class="fas fa-user-check text-info"></i> Average Student
+          </button>
+          <button type="button" class="preset-btn" data-preset="risk">
+            <i class="fas fa-triangle-exclamation text-danger"></i> At-Risk Student
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Input Form Column -->
+      <div class="col-lg-7">
+        <div class="form-card">
+          <form id="predictionForm" method="POST" action="{{ url_for('predict_page') }}">
+            
+            <!-- Section 1: Student Demographics -->
+            <div class="form-section-title">
+              <i class="fas fa-id-card text-primary"></i> 1. Student Identity & Demographics
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label for="student_name" class="form-label">Student Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="student_name" name="student_name" placeholder="e.g. Aarav Sharma" required value="{{ form_data.student_name if form_data else '' }}">
+              </div>
+
+              <div class="col-md-6">
+                <label for="student_id" class="form-label">Student ID / Roll No <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="student_id" name="student_id" placeholder="e.g. STU-2026-440" required value="{{ form_data.student_id if form_data else '' }}">
+              </div>
+
+              <div class="col-md-4">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-select" id="gender" name="gender">
+                  <option value="Male" {% if form_data and form_data.gender == 'Male' %}selected{% endif %}>Male</option>
+                  <option value="Female" {% if form_data and form_data.gender == 'Female' %}selected{% endif %}>Female</option>
+                  <option value="Other" {% if form_data and form_data.gender == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label for="age" class="form-label">
+                  <span>Age</span>
+                  <span id="val_age" class="slider-val-badge">20 yrs</span>
+                </label>
+                <input type="range" class="form-range" id="age" name="age" min="15" max="30" step="1" value="{{ form_data.age if form_data else '20' }}">
+              </div>
+
+              <div class="col-md-4">
+                <label for="parental_edu" class="form-label">Parental Education</label>
+                <select class="form-select" id="parental_edu" name="parental_edu">
+                  <option value="High School">High School</option>
+                  <option value="Associate">Associate Degree</option>
+                  <option value="Bachelor's" selected>Bachelor's Degree</option>
+                  <option value="Master's">Master's Degree</option>
+                  <option value="Doctorate">Doctorate (PhD)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Section 2: Academic Metrics -->
+            <div class="form-section-title">
+              <i class="fas fa-graduation-cap text-primary"></i> 2. Academic Performance Metrics
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label for="attendance" class="form-label">
+                  <span>Attendance Rate</span>
+                  <span id="val_attendance" class="slider-val-badge">75%</span>
+                </label>
+                <input type="range" class="form-range" id="attendance" name="attendance" min="30" max="100" step="0.5" value="{{ form_data.attendance if form_data else '75' }}">
+                <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                  <span>30% (Poor)</span>
+                  <span>75% (Mandatory)</span>
+                  <span>100%</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="prev_marks" class="form-label">
+                  <span>Previous Semester %</span>
+                  <span id="val_prev_marks" class="slider-val-badge">70%</span>
+                </label>
+                <input type="range" class="form-range" id="prev_marks" name="prev_marks" min="30" max="100" step="0.5" value="{{ form_data.prev_marks if form_data else '70' }}">
+                <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                  <span>30%</span>
+                  <span>65% (Average)</span>
+                  <span>100%</span>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label for="internal_marks" class="form-label">
+                  <span>Internal Marks</span>
+                  <span id="val_internal_marks" class="slider-val-badge">70/100</span>
+                </label>
+                <input type="range" class="form-range" id="internal_marks" name="internal_marks" min="20" max="100" step="1" value="{{ form_data.internal_marks if form_data else '70' }}">
+              </div>
+
+              <div class="col-md-4">
+                <label for="assignment_score" class="form-label">
+                  <span>Assignment Score</span>
+                  <span id="val_assignment_score" class="slider-val-badge">75/100</span>
+                </label>
+                <input type="range" class="form-range" id="assignment_score" name="assignment_score" min="20" max="100" step="1" value="{{ form_data.assignment_score if form_data else '75' }}">
+              </div>
+
+              <div class="col-md-4">
+                <label for="class_test_marks" class="form-label">
+                  <span>Class Test Marks</span>
+                  <span id="val_class_test_marks" class="slider-val-badge">70/100</span>
+                </label>
+                <input type="range" class="form-range" id="class_test_marks" name="class_test_marks" min="20" max="100" step="1" value="{{ form_data.class_test_marks if form_data else '70' }}">
+              </div>
+
+              <div class="col-md-12">
+                <label for="past_failures" class="form-label">Number of Past Subject Failures / Backlogs</label>
+                <select class="form-select" id="past_failures" name="past_failures">
+                  <option value="0" selected>0 (No Past Failures)</option>
+                  <option value="1">1 Subject</option>
+                  <option value="2">2 Subjects</option>
+                  <option value="3">3 Subjects</option>
+                  <option value="4">4+ Subjects (Critical)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Section 3: Study Habits & Environment -->
+            <div class="form-section-title">
+              <i class="fas fa-brain text-primary"></i> 3. Study Habits & Environmental Factors
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label for="study_hours" class="form-label">
+                  <span>Study Hours Per Day</span>
+                  <span id="val_study_hours" class="slider-val-badge">3.0 hrs</span>
+                </label>
+                <input type="range" class="form-range" id="study_hours" name="study_hours" min="0.5" max="12" step="0.5" value="{{ form_data.study_hours if form_data else '3' }}">
+                <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                  <span>0.5h (Low)</span>
+                  <span>4h (Ideal)</span>
+                  <span>12h</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="sleep_hours" class="form-label">
+                  <span>Sleep Hours Per Night</span>
+                  <span id="val_sleep_hours" class="slider-val-badge">7.0 hrs</span>
+                </label>
+                <input type="range" class="form-range" id="sleep_hours" name="sleep_hours" min="4" max="11" step="0.5" value="{{ form_data.sleep_hours if form_data else '7' }}">
+                <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                  <span>4h (Sleep Deprived)</span>
+                  <span>7-8h (Healthy)</span>
+                  <span>11h</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="extracurricular" class="form-label">Extracurricular Activities</label>
+                <select class="form-select" id="extracurricular" name="extracurricular">
+                  <option value="Yes">Yes (Sports, Clubs, Arts)</option>
+                  <option value="No" selected>No</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="internet_access" class="form-label">High-Speed Internet Access at Home</label>
+                <select class="form-select" id="internet_access" name="internet_access">
+                  <option value="Yes" selected>Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary-custom btn-lg w-100 py-3">
+              <i class="fas fa-wand-magic-sparkles me-2"></i> Predict Student Performance
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Result Container Column -->
+      <div class="col-lg-5">
+        <div id="resultContainer">
+          {% if result %}
+            <!-- Server-rendered result card if submitted without JS -->
+            <div id="resultCardWrapper" class="result-card">
+              <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                  <span class="badge {{ result.badge_class }} mb-2">{{ result.performance_level }}</span>
+                  <h3 class="fw-bold mb-1">{{ result.student_name }}</h3>
+                  <p class="text-muted mb-0 small">Student ID: <strong>{{ result.student_id }}</strong></p>
+                </div>
+                <button class="btn btn-outline-custom btn-sm" onclick="window.print()">
+                  <i class="fas fa-print"></i>
+                </button>
+              </div>
+
+              <div class="score-circle" style="--percent: {{ result.predicted_score }};">
+                <div class="score-circle-inner">
+                  <div class="score-number">{{ result.predicted_score }}%</div>
+                  <div class="score-unit">Predicted Score</div>
+                </div>
+              </div>
+
+              <div class="text-center mb-4">
+                <span class="badge bg-dark px-3 py-2 me-2">Grade: <strong>{{ result.predicted_grade }}</strong></span>
+                <span class="badge {{ result.badge_class }} px-3 py-2">{{ result.performance_level }}</span>
+              </div>
+
+              <div class="border-top pt-3">
+                <h6 class="fw-bold mb-3"><i class="fas fa-robot text-primary me-1"></i> AI Suggestions</h6>
+                {% for item in result.recommendations %}
+                  <div class="suggestion-card">
+                    <div class="suggestion-icon {{ item.type }}"><i class="fas {{ item.icon }}"></i></div>
+                    <div>
+                      <strong class="d-block small text-dark">{{ item.title }}</strong>
+                      <p class="mb-0 text-muted" style="font-size: 0.8rem;">{{ item.text }}</p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            <!-- Default Placeholder Card -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 text-center bg-white h-100 d-flex flex-column justify-content-center align-items-center">
+              <div class="stat-icon primary mb-3" style="width:70px; height:70px; font-size:1.8rem;">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h5 class="fw-bold mb-2">Awaiting Student Input</h5>
+              <p class="text-muted small mb-4" style="max-width: 320px;">
+                Enter the student's metrics on the left or click one of the preset profiles to generate real-time AI performance prediction and actionable study guidance.
+              </p>
+
+              <div class="p-3 bg-light rounded-3 text-start w-100">
+                <div class="small fw-bold text-muted mb-2"><i class="fas fa-check-circle text-success me-1"></i> What You'll Receive:</div>
+                <ul class="text-muted small ps-3 mb-0">
+                  <li>Predicted Final Percentage & Grade</li>
+                  <li>Academic Performance Classification</li>
+                  <li>Early Risk Detection Alert</li>
+                  <li>Tailored Weak-Area Action Recommendations</li>
+                  <li>Exportable / Printable Student Report Card</li>
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/predict.js') }}"></script>
+{% endblock %}
